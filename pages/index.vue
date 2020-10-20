@@ -7,48 +7,31 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      news: [
-        {
-          id: 1,
-          title: "titulo1",
-          body:
-            "dew dew dew dw de wd we dwed we de wd  erv f  v r ef erf er fer f erfe",
-          author: "Juanito Alcachofa",
-          createdAt: "2020-12-03",
-          updatedAt: "2020-10-23"
-        },
-        {
-          id: 2,
-          title: "titulo2",
-          body:
-            "dew dew dew dw de wd we dwed we de wd  erv f  v r ef erf er fer f erfe",
-          author: "Juanito Alcachofa",
-          createdAt: "2020-12-03",
-          updatedAt: "2020-10-23"
-        },
-        {
-          id: 3,
-          title: "titulo3",
-          body:
-            "dew dew dew dw de wd we dwed we de wd  erv f  v r ef erf er fer f erfe",
-          author: "Juanito Alcachofa",
-          createdAt: "2020-12-03",
-          updatedAt: "2020-10-23"
-        },
-        {
-          id: 4,
-          title: "titulo4",
-          body:
-            "dew dew dew dw de wd we dwed we de wd  erv f  v r ef erf er fer f erfe",
-          author: "Juanito Alcachofa",
-          createdAt: "2020-12-03",
-          updatedAt: "2020-10-23"
-        }
-      ]
+      news: []
     };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData: function() {
+      axios
+        .get(
+          "https://5hg8ux24j8.execute-api.us-east-2.amazonaws.com/default/periodico"
+        )
+        .then(res => {
+          const datos = res.data.Items;
+          this.news = datos;
+
+          // setdata(filterData(id, datos));
+          // setisLoading(false);
+        })
+        .catch(err => console.log(err));
+    }
   }
 };
 </script>
